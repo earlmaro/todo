@@ -1,0 +1,93 @@
+.my_own {
+   height: 90vw !important; 
+}
+.forgot-pass {
+   display: inline-block !important;
+   position: absolute !important;
+}
+
+
+
+<div class="class"></div>
+<h3>TodoList record</h3>
+<table>
+<tr>
+   <td> <input type="button" id="display" value="Display All Data" /> </td>
+
+
+
+
+
+
+
+
+
+   
+</tr>
+
+<div id="table1">
+
+</div>
+<?php
+
+// mysqli_select_db("ytgb",$con);
+// $result=mysqli_query($username,$con);
+
+$query = "SELECT * FROM todos where USERNAME = '$username' ";
+$result = mysqli_query($con, $query);
+
+
+?>
+
+<table class="table mt-4 table-striped">
+  <thead class="bg-dark text-white">
+        <tr>
+            <th>ID</th>
+            <th>TITLE</th>
+            <th>STATUS</th>
+            <th>USERNAME</th>
+      </tr>
+  </thead>
+<tbody>
+
+<?php
+
+while ($row = mysqli_fetch_array($result));
+{
+?>
+
+  
+  <tr>
+        <td><?php echo $row ["id"];?></td>
+        <td><?php echo $row ["Title"];?></td>
+        <td><?php echo $row ["Status"];?></td>
+        <td><?php echo $row ["username"];?></td>
+
+</tr>
+<?php
+}
+?>
+</tbody>
+</table>
+
+<script>
+          $(document).ready(function() {
+
+        $("#display").click(function() {                
+
+          $.ajax({    //create an ajax request to display.php
+            type: "GET",
+            url: "addtodo.php",             
+            dataType: "html",   //expect html to be returned                
+            success: function(response){  
+                              
+                $("#table1").html(response); 
+                //alert(response);
+            }
+
+        });
+
+        });
+        });
+
+        </script>
